@@ -1,18 +1,16 @@
-import {
-  type Point,
-} from "../interface/OrthogonalRouter";
+import { type Point } from '../interface/OrthogonalRouter';
 
 export interface SegmentHandle extends Point {
   segmentIndex: number;
-  direction: "horizontal" | "vertical";
-  moveAxis: "x" | "y";
+  direction: 'horizontal' | 'vertical';
+  moveAxis: 'x' | 'y';
 }
 
 export interface SegmentDragState {
   segmentIndex: number;
   originalRoute: Point[];
   currentCoordinate: number;
-  moveAxis: "x" | "y";
+  moveAxis: 'x' | 'y';
   pointerStart: Point;
   hasMoved: boolean;
 }

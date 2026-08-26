@@ -56,7 +56,6 @@ import {
   EdgeLabelRenderer,
   useVueFlow,
 } from "@vue-flow/core";
-
 import type { CSSProperties } from "vue";
 import {
   computed,
@@ -64,18 +63,15 @@ import {
   ref,
   watch,
 } from "vue";
-
 import {
   type OrthogonalEdgeData,
   type Point,
 } from "../src/interface/OrthogonalRouter";
-
 import {
   type WaypointDragState,
   type SegmentHandle,
   type SegmentDragState,
 } from "../src/interface/SpecialEdge";
-
 import { routeOrthogonal } from '../src/router/orthogonalRouter';
 
 const props =
@@ -90,11 +86,9 @@ const ALIGNMENT_TOLERANCE = 6;
 const DRAG_THRESHOLD = 3;
 const POINT_EPSILON = 0.5;
 
-const segmentDrag =
-  ref<SegmentDragState | null>(null);
+const segmentDrag = ref<SegmentDragState | null>(null);
 
-const waypointDrag =
-  ref<WaypointDragState | null>(null);
+const waypointDrag = ref<WaypointDragState | null>(null);
 
 const sourcePoint = computed<Point>(() => ({
   x: props.sourceX,
@@ -112,13 +106,11 @@ const buildRoute = (
   routeOrthogonal({
     source: sourcePoint.value,
     target: targetPoint.value,
-
     /*
      * Strict isolation:
      * unrelated nodes cannot affect this edge.
      */
     obstacles: [],
-
     waypoints,
     clearance: props.data?.clearance,
   });

@@ -29,4 +29,16 @@ export default defineConfigWithVueTs(
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
   skipFormatting,
+
+  {
+    rules: {
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
+      'prefer-const': 'error',
+      'prefer-arrow-callback': 'error',
+      'func-style': ['error', 'expression', { allowArrowFunctions: true }],
+      'object-shorthand': ['error', 'always'],
+      'no-var': 'error',
+    },
+  },
 )

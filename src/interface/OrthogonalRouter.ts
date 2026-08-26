@@ -1,39 +1,39 @@
 export interface Point {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
 export interface Obstacle {
-  x: number
-  y: number
-  width: number
-  height: number
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export interface OrthogonalRouteOptions {
-  source: Point
-  target: Point
-  obstacles?: Obstacle[]
-  waypoints?: Point[]
-  clearance?: number
-  turnPenalty?: number
+  source: Point;
+  target: Point;
+  obstacles?: Obstacle[];
+  waypoints?: Point[];
+  clearance?: number;
+  turnPenalty?: number;
 }
 
 export interface OrthogonalEdgeData {
-  hello?: string
-  waypoints?: Point[]
-  clearance?: number
-  normalizeRevision?: number
+  hello?: string;
+  waypoints?: Point[];
+  clearance?: number;
+  normalizeRevision?: number;
 }
 
 export interface GridPoint extends Point {
-  key: string
+  key: string;
 }
 
 export interface SearchState {
-  point: GridPoint
-  direction: 'horizontal' | 'vertical' | null
-  cost: number
-  estimate: number
-  path: GridPoint[]
+  point: GridPoint;
+  direction: 'horizontal' | 'vertical' | null;
+  cost: number;
+  estimate: number;
+  path: GridPoint[];
 }

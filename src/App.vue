@@ -23,8 +23,8 @@ import type { Edge, Node } from '@vue-flow/core';
 import { VueFlow, type NodeDragEvent } from '@vue-flow/core';
 import type { OrthogonalEdgeData } from './interface/OrthogonalRouter.ts';
 
-import SpecialNode from '../components/SpecialNode.vue'
-import SpecialEdge from '../components/SpecialEdge.vue'
+import SpecialNode from '../components/SpecialNode.vue';
+import SpecialEdge from '../components/SpecialEdge.vue';
 
 const nodes = ref<Node[]>([
   {
@@ -53,7 +53,7 @@ const nodes = ref<Node[]>([
       hello: 'world',
     },
   },
-])
+]);
 
 const edges = ref<Edge<OrthogonalEdgeData>[]>([
   {
@@ -77,29 +77,21 @@ const edges = ref<Edge<OrthogonalEdgeData>[]>([
       clearance: 20,
     },
   },
-])
+]);
 
-const onNodeDragStop = (
-  event: NodeDragEvent,
-): void => {
+const onNodeDragStop = (event: NodeDragEvent): void => {
   const draggedNodeId = event.node.id;
 
   for (const edge of edges.value) {
-    const isConnected =
-      edge.source === draggedNodeId ||
-      edge.target === draggedNodeId;
+    const isConnected = edge.source === draggedNodeId || edge.target === draggedNodeId;
 
-    if (
-      edge.type !== "special" ||
-      !isConnected
-    ) {
+    if (edge.type !== 'special' || !isConnected) {
       continue;
     }
 
     edge.data = {
       ...edge.data,
-      normalizeRevision:
-        (edge.data?.normalizeRevision ?? 0) + 1,
+      normalizeRevision: (edge.data?.normalizeRevision ?? 0) + 1,
     };
   }
 };
