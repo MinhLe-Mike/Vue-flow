@@ -1,9 +1,9 @@
-import { globalIgnores } from 'eslint/config'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-import pluginVue from 'eslint-plugin-vue'
-import pluginVitest from '@vitest/eslint-plugin'
-import pluginOxlint from 'eslint-plugin-oxlint'
-import skipFormatting from 'eslint-config-prettier/flat'
+import { globalIgnores } from 'eslint/config';
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
+import pluginVue from 'eslint-plugin-vue';
+import pluginVitest from '@vitest/eslint-plugin';
+import pluginOxlint from 'eslint-plugin-oxlint';
+import skipFormatting from 'eslint-config-prettier/flat';
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -35,10 +35,9 @@ export default defineConfigWithVueTs(
       semi: ['error', 'always'],
       quotes: ['error', 'single'],
       'prefer-const': 'error',
+      'no-var': 'error',
       'prefer-arrow-callback': 'error',
       'func-style': ['error', 'expression', { allowArrowFunctions: true }],
-      'object-shorthand': ['error', 'always'],
-      'no-var': 'error',
     },
   },
-)
+);

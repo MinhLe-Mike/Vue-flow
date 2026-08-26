@@ -1,20 +1,11 @@
-import type {
-  Point,
-  Obstacle,
-  GridPoint,
-  SearchState,
-  OrthogonalRouteOptions,
-} from '../interface/OrthogonalRouter';
+import type { Point, Obstacle, GridPoint, SearchState, OrthogonalRouteOptions } from '../interface/OrthogonalRouter';
 
 const pointKey = ({ x, y }: Point) => `${x}:${y}`;
 
 const samePoint = (first: Point, second: Point) => first.x === second.x && first.y === second.y;
 
 const isInside = (point: Point, obstacle: Obstacle) =>
-  point.x > obstacle.x &&
-  point.x < obstacle.x + obstacle.width &&
-  point.y > obstacle.y &&
-  point.y < obstacle.y + obstacle.height;
+  point.x > obstacle.x && point.x < obstacle.x + obstacle.width && point.y > obstacle.y && point.y < obstacle.y + obstacle.height;
 
 const segmentIntersectsRect = (first: Point, second: Point, obstacle: Obstacle) => {
   if (first.x === second.x) {
@@ -37,18 +28,11 @@ const segmentIntersectsRect = (first: Point, second: Point, obstacle: Obstacle) 
 };
 
 const isClear = (first: Point, second: Point, obstacles: Obstacle[]) =>
-  !obstacles.some(
-    (obstacle) =>
-      isInside(first, obstacle) ||
-      isInside(second, obstacle) ||
-      segmentIntersectsRect(first, second, obstacle),
-  );
+  !obstacles.some((obstacle) => isInside(first, obstacle) || isInside(second, obstacle) || segmentIntersectsRect(first, second, obstacle));
 
-const distance = (first: Point, second: Point) =>
-  Math.abs(first.x - second.x) + Math.abs(first.y - second.y);
+const distance = (first: Point, second: Point) => Math.abs(first.x - second.x) + Math.abs(first.y - second.y);
 
-const directionBetween = (first: Point, second: Point): 'horizontal' | 'vertical' =>
-  first.x === second.x ? 'vertical' : 'horizontal';
+const directionBetween = (first: Point, second: Point): 'horizontal' | 'vertical' => (first.x === second.x ? 'vertical' : 'horizontal');
 
 const addPoint = (points: Map<string, GridPoint>, point: Point) => {
   const key = pointKey(point);
@@ -67,12 +51,8 @@ const simplifyPath = (points: Point[]) => {
     if (
       beforePrevious &&
       previous &&
-      ((beforePrevious.x === previous.x &&
-        previous.x === point.x &&
-        (previous.y - beforePrevious.y) * (point.y - previous.y) >= 0) ||
-        (beforePrevious.y === previous.y &&
-          previous.y === point.y &&
-          (previous.x - beforePrevious.x) * (point.x - previous.x) >= 0))
+      ((beforePrevious.x === previous.x && previous.x === point.x && (previous.y - beforePrevious.y) * (point.y - previous.y) >= 0) ||
+        (beforePrevious.y === previous.y && previous.y === point.y && (previous.x - beforePrevious.x) * (point.x - previous.x) >= 0))
     ) {
       simplified[simplified.length - 1] = point;
     } else {
@@ -186,9 +166,7 @@ const routeBetween = (
   const end = grid.get(pointKey(target));
   if (!start || !end) return [source, target];
 
-  const open: SearchState[] = [
-    { point: start, direction: null, cost: 0, estimate: distance(source, target), path: [start] },
-  ];
+  const open: SearchState[] = [{ point: start, direction: null, cost: 0, estimate: distance(source, target), path: [start] }];
   const bestCosts = new Map<string, number>();
 
   while (open.length) {
@@ -206,18 +184,13 @@ const routeBetween = (
 
       const firstDirection = directionBetween(current.point, first);
       const secondDirection = directionBetween(current.point, second);
-      return (
-        Number(secondDirection === preferredFirstDirection) -
-        Number(firstDirection === preferredFirstDirection)
-      );
+      return Number(secondDirection === preferredFirstDirection) - Number(firstDirection === preferredFirstDirection);
     });
 
     for (const neighbor of nextNeighbors) {
       const direction = directionBetween(current.point, neighbor);
       const nextCost =
-        current.cost +
-        distance(current.point, neighbor) +
-        (current.direction && current.direction !== direction ? turnPenalty : 0);
+        current.cost + distance(current.point, neighbor) + (current.direction && current.direction !== direction ? turnPenalty : 0);
       const neighborKey = `${neighbor.key}:${direction}`;
 
       if (nextCost >= (bestCosts.get(neighborKey) ?? Infinity)) continue;
@@ -269,9 +242,7 @@ export const routeOrthogonal = ({
   });
 
   const simplifiedSegments = segments.map(simplifyPath);
-  const route = simplifiedSegments.flatMap((segment, index) =>
-    index ? segment.slice(1) : segment,
-  );
+  const route = simplifiedSegments.flatMap((segment, index) => (index ? segment.slice(1) : segment));
 
   return simplifyPath(route);
 };
